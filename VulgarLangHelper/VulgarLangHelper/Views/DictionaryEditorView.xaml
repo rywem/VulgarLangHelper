@@ -10,9 +10,66 @@
         <vms:DictionaryEditorViewModel />
     </UserControl.DataContext>
     <Grid>
-        <TextBlock Text="{Binding Title}"
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
-                   FontSize="16" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Text Area -->
+            <RowDefinition Height="Auto" />
+            <!-- Parse Button -->
+            <RowDefinition Height="Auto" />
+            <!-- Replace Controls -->
+            <RowDefinition Height="2*" />
+            <!-- Parsed Dictionary List -->
+            <RowDefinition Height="1*" />
+            <!-- Replacement History List -->
+            <RowDefinition Height="Auto" />
+            <!-- Output Text Area -->
+        </Grid.RowDefinitions>
+
+        <!-- Input Text Area -->
+        <TextBox Grid.Row="0" AcceptsReturn="True" Text="{Binding RawInput}" 
+             VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" 
+             FontFamily="Consolas" FontSize="14" Height="120" />
+
+        <!-- Parse Button -->
+        <Button Grid.Row="1" Content="Parse" Command="{Binding ParseCommand}" />
+
+        <!-- Replace Controls -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,10">
+            <TextBlock Text="Target Character:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBox Width="50" Text="{Binding TargetCharacter}" />
+
+            <TextBlock Text="Available Replacements:" VerticalAlignment="Center" Margin="10,0,10,0"/>
+            <TextBox Width="150" Text="{Binding ReplacementCharacters}" />
+
+            <Button Content="Replace Character" Command="{Binding ReplaceCharacterCommand}" Margin="10,0,0,0" />
+        </StackPanel>
+
+        <!-- Parsed Dictionary Items -->
+        <ListView Grid.Row="3" ItemsSource="{Binding ParsedItems}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Translation" DisplayMemberBinding="{Binding EnglishTranslation}" Width="200" />
+                    <GridViewColumn Header="Type of Speech" DisplayMemberBinding="{Binding TypeOfSpeech}" Width="150" />
+                    <GridViewColumn Header="IPA Pronunciation" DisplayMemberBinding="{Binding IpaPronunciation}" Width="150" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Replacement History -->
+        <ListView Grid.Row="4" ItemsSource="{Binding ReplacementHistory}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Translation" DisplayMemberBinding="{Binding Translation}" Width="200" />
+                    <GridViewColumn Header="Type of Speech" DisplayMemberBinding="{Binding TypeOfSpeech}" Width="150" />
+                    <GridViewColumn Header="Original" DisplayMemberBinding="{Binding Original}" Width="150" />
+                    <GridViewColumn Header="Updated" DisplayMemberBinding="{Binding Updated}" Width="150" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Output Text Area -->
+        <TextBox Grid.Row="5" AcceptsReturn="True" Text="{Binding Output}" 
+             VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" 
+             FontFamily="Consolas" FontSize="14" Height="120" IsReadOnly="True" />
     </Grid>
 </UserControl>
