@@ -4,9 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VulgarLangHelper"
+        xmlns:views="clr-namespace:VulgarLangHelper.Views"
+        xmlns:vms="clr-namespace:VulgarLangHelper.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vms:MainWindowViewModel />
+    </Window.DataContext>
     <Grid>
-
+        <TabControl>
+            <!-- Tab 1 -->
+            <TabItem Header="Home">
+                <views:HomeView />
+            </TabItem>
+            <!-- Tab 2 -->
+            <TabItem Header="Dictionary Editor">
+                <views:DictionaryEditorView />
+            </TabItem>
+            <!-- Tab 3 -->
+            <!--<TabItem Header="About">
+                <views:AboutView />
+            </TabItem>-->
+        </TabControl>
     </Grid>
 </Window>
